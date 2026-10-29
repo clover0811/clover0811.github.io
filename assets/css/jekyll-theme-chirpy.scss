@@ -20,14 +20,6 @@
   --clover-muted-dark: #918aad;
   --clover-border: rgba(155, 124, 255, 0.32);
 
-  --clover-sidebar-width: 260px;
-  --clover-content-width: 820px;
-  --clover-panel-width: 270px;
-  --clover-gap: 34px;
-
-  --clover-shell-width: calc(
-    var(--clover-content-width) + var(--clover-panel-width) + var(--clover-gap)
-  );
 }
 
 /* =========================
@@ -41,6 +33,8 @@ body {
 
 #main-wrapper,
 #main-wrapper > .container,
+#main,
+main,
 #topbar-wrapper,
 #topbar {
   background-color: var(--clover-bg) !important;
@@ -51,7 +45,6 @@ body {
    ========================= */
 
 #sidebar {
-  width: var(--clover-sidebar-width) !important;
   background-color: var(--clover-sidebar) !important;
   border-right: 1px solid rgba(155, 124, 255, 0.25) !important;
 }
@@ -97,53 +90,7 @@ body {
   box-shadow: 0 0 18px rgba(155, 124, 255, 0.25) !important;
 }
 
-/* =========================
-   Layout reset / responsive alignment
-   Chirpy controls the grid, top bar and search position.
-   Avoid fixed column widths and absolute search positioning.
-   ========================= */
-
-/* Keep the content column and right panel within the viewport. */
-#main-wrapper,
-#main-wrapper > .container,
-#main-wrapper > .container > .row,
-#main,
-main,
-#panel-wrapper {
-  min-width: 0;
-}
-
-/* Push the footer to the bottom on short or empty pages. */
-#main-wrapper > .container {
-  min-height: 100vh;
-}
-
-#main-wrapper > .container > .row.flex-grow-1 {
-  flex-grow: 1 !important;
-}
-
-/* Restore native navigation list styling (no extra bullets). */
-#sidebar nav ul,
-#sidebar nav li {
-  list-style: none !important;
-}
-
-#sidebar nav ul {
-  margin: 0;
-  padding-left: 0;
-}
-
-/* Small cosmetic tweaks only: do not move top bar controls. */
-#search-input {
-  background-color: #12121f !important;
-  border: 1px solid rgba(155, 124, 255, 0.32) !important;
-  color: var(--clover-text) !important;
-  border-radius: 999px !important;
-}
-
-#search-input::placeholder {
-  color: #8f88a8 !important;
-}
+/* Keep Chirpy's native responsive grid, topbar and search placement. */
 
 /* =========================
    Home Post Card
@@ -281,6 +228,21 @@ a.post-tag {
 }
 
 /* =========================
+   Search
+   ========================= */
+
+#search-input {
+  background-color: #12121f !important;
+  border: 1px solid rgba(155, 124, 255, 0.32) !important;
+  color: var(--clover-text) !important;
+  border-radius: 999px !important;
+}
+
+#search-input::placeholder {
+  color: #8f88a8 !important;
+}
+
+/* =========================
    Right Panel
    ========================= */
 
@@ -319,7 +281,18 @@ a.post-tag {
   color: var(--clover-point-hover) !important;
 }
 
-/* Sidebar bottom icons use Chirpy's own responsive positioning. */
+/* =========================
+   Footer
+   ========================= */
+
+/* The sidebar uses Chirpy's own responsive positioning. */
+#sidebar .nav-item { list-style: none !important; }
 #sidebar .sidebar-bottom {
-  gap: 10px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .45rem !important;
 }
+#sidebar .sidebar-bottom a { margin: 0 !important; }

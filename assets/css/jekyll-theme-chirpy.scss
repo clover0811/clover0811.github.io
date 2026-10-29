@@ -281,120 +281,128 @@ a.post-tag {
   color: var(--clover-point-hover) !important;
 }
 
-/* =========================
-   Footer
-   ========================= */
+/* ============================================================
+   Structural layout fix for Chirpy's actual default.html markup:
+   #main-wrapper > .container > (#topbar-wrapper, .row, footer)
+   The search element is #search (not #search-wrapper).
+   ============================================================ */
 
-/* The sidebar uses Chirpy's own responsive positioning. */
-#sidebar .nav-item { list-style: none !important; }
-#sidebar .sidebar-bottom {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: .45rem !important;
+/* Fill the viewport, so a short/empty home page keeps footer at bottom. */
+#main-wrapper {
+  min-height: 100vh !important;
+  background: var(--clover-bg) !important;
 }
-#sidebar .sidebar-bottom a { margin: 0 !important; }
+#main-wrapper > .container {
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--clover-bg) !important;
+}
+#main-wrapper > .container > .row {
+  flex: 1 0 auto !important;
+}
+#main-wrapper > .container > footer,
+#main-wrapper > .container > #footer-wrapper {
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+  width: 100% !important;
+  background: var(--clover-bg) !important;
+}
 
-/* =========================================================
-   Layout repairs (desktop only)
-   Keep the theme grid and position only the UI components.
-   ========================================================= */
+/* Maintain Chirpy's default desktop grid: no fixed widths on main / panel. */
 @media (min-width: 1200px) {
-  /* The header sits to the right of the 260px sidebar. */
   #topbar-wrapper {
-    left: 260px !important;
-    width: calc(100% - 260px) !important;
-    max-width: none !important;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: 64px !important;
+    min-height: 64px !important;
     margin: 0 !important;
-    padding: 0 2rem !important;
-    box-sizing: border-box !important;
+    padding: 0 !important;
+    flex: 0 0 64px !important;
+    z-index: 10 !important;
   }
   #topbar {
-    width: 100% !important;
-    max-width: none !important;
-    min-height: 64px !important;
+    position: relative !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    gap: 1rem !important;
-    position: relative !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    padding: 0 24px !important;
+    box-sizing: border-box !important;
   }
   #breadcrumb {
     position: static !important;
-    flex: 0 1 auto !important;
+    display: block !important;
     width: auto !important;
+    max-width: none !important;
     margin: 0 !important;
+    flex: 0 1 auto !important;
   }
-  #topbar #search-wrapper {
-    position: relative !important;
+  /* The real Chirpy search component is <search id="search">. */
+  #topbar #search {
+    position: static !important;
     inset: auto !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
     transform: none !important;
-    float: none !important;
     display: flex !important;
     align-items: center !important;
+    flex: 0 0 230px !important;
     width: 230px !important;
     max-width: 230px !important;
+    height: 36px !important;
     margin: 0 0 0 auto !important;
-    padding: 0 !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+    background: var(--clover-card) !important;
+    border: 1px solid var(--clover-border) !important;
+    border-radius: 999px !important;
   }
   #topbar #search-input {
     position: static !important;
+    display: block !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
     width: 100% !important;
-    max-width: 100% !important;
-    height: 34px !important;
+    height: 32px !important;
     margin: 0 !important;
+    padding: 0 8px !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
   }
-  /* Never force the magnifying-glass trigger over the desktop search box. */
-  #topbar #search-trigger {
-    position: static !important;
-    inset: auto !important;
-    transform: none !important;
-    margin-left: auto !important;
-  }
-  #main-wrapper {
-    display: flex !important;
-    flex-direction: column !important;
-    min-height: 100vh !important;
-    margin-left: 260px !important;
-    width: calc(100% - 260px) !important;
-    box-sizing: border-box !important;
-    padding-top: 64px !important;
-  }
-  #main-wrapper > .container {
-    flex: 1 0 auto !important;
-    width: 100% !important;
-    max-width: 1320px !important;
-    margin-inline: auto !important;
-  }
-  #main-wrapper > footer,
-  #main-wrapper > #footer-wrapper {
-    flex-shrink: 0 !important;
-    margin-top: auto !important;
-    width: 100% !important;
-  }
-  #sidebar .sidebar-bottom {
-    position: absolute !important;
-    bottom: 1.5rem !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: auto !important;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    gap: 0.5rem !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  #topbar #search-trigger,
+  #topbar #sidebar-trigger,
+  #topbar #topbar-title,
+  #topbar #search-cancel {
+    display: none !important;
   }
 }
 
-/* Do not let old Bootstrap spacing push footer up on empty home pages. */
-#main-wrapper footer { background: var(--clover-bg) !important; }
+/* Social links anchored to bottom of the desktop sidebar. */
+@media (min-width: 992px) {
+  #sidebar .sidebar-bottom {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 24px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #sidebar .sidebar-bottom > a { margin: 0 !important; }
+}
+
+@media (max-width: 1199.98px) {
+  /* Leave the native mobile/tablet topbar and search toggling intact. */
+  #topbar-wrapper { position: relative; }
+}

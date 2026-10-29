@@ -6,7 +6,7 @@
 /* =========================
    Clover Custom Theme
    Dark Purple Version
-   Layout: Chirpy 3-column fixed
+   Layout: Chirpy responsive / corrected alignment
    ========================= */
 
 :root {
@@ -296,3 +296,105 @@ a.post-tag {
   gap: .45rem !important;
 }
 #sidebar .sidebar-bottom a { margin: 0 !important; }
+
+/* =========================================================
+   Layout repairs (desktop only)
+   Keep the theme grid and position only the UI components.
+   ========================================================= */
+@media (min-width: 1200px) {
+  /* The header sits to the right of the 260px sidebar. */
+  #topbar-wrapper {
+    left: 260px !important;
+    width: calc(100% - 260px) !important;
+    max-width: none !important;
+    height: 64px !important;
+    margin: 0 !important;
+    padding: 0 2rem !important;
+    box-sizing: border-box !important;
+  }
+  #topbar {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    position: relative !important;
+  }
+  #breadcrumb {
+    position: static !important;
+    flex: 0 1 auto !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+  #topbar #search-wrapper {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    float: none !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 230px !important;
+    max-width: 230px !important;
+    margin: 0 0 0 auto !important;
+    padding: 0 !important;
+  }
+  #topbar #search-input {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 34px !important;
+    margin: 0 !important;
+  }
+  /* Never force the magnifying-glass trigger over the desktop search box. */
+  #topbar #search-trigger {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    margin-left: auto !important;
+  }
+  #main-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    box-sizing: border-box !important;
+    padding-top: 64px !important;
+  }
+  #main-wrapper > .container {
+    flex: 1 0 auto !important;
+    width: 100% !important;
+    max-width: 1320px !important;
+    margin-inline: auto !important;
+  }
+  #main-wrapper > footer,
+  #main-wrapper > #footer-wrapper {
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+    width: 100% !important;
+  }
+  #sidebar .sidebar-bottom {
+    position: absolute !important;
+    bottom: 1.5rem !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* Do not let old Bootstrap spacing push footer up on empty home pages. */
+#main-wrapper footer { background: var(--clover-bg) !important; }

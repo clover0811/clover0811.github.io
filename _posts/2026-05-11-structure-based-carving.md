@@ -3,7 +3,6 @@ title: "structure-based carving"
 date: 2026-05-11
 categories: [Write-up]
 tags: [Digital Forensics, ZIP, Dreamhack]
-published: false
 ---
 
 ## 문제 정보

@@ -37,16 +37,12 @@
 html,
 body {
   background-color: var(--clover-bg) !important;
-  overflow-x: hidden !important;
 }
 
 #main-wrapper,
 #main-wrapper > .container,
-#main,
-main,
 #topbar-wrapper,
-#topbar,
-.row {
+#topbar {
   background-color: var(--clover-bg) !important;
 }
 
@@ -102,192 +98,51 @@ main,
 }
 
 /* =========================
-   핵심 레이아웃 수정
-   왼쪽 사이드바 / 가운데 본문 / 오른쪽 패널
+   Layout reset / responsive alignment
+   Chirpy controls the grid, top bar and search position.
+   Avoid fixed column widths and absolute search positioning.
    ========================= */
 
-@media (min-width: 1200px) {
-  #main-wrapper {
-    margin-left: var(--clover-sidebar-width) !important;
-    width: calc(100% - var(--clover-sidebar-width)) !important;
-    max-width: none !important;
-    padding: 44px 0 0 0 !important;
-  }
-
-  #main-wrapper > .container {
-    width: var(--clover-shell-width) !important;
-    max-width: var(--clover-shell-width) !important;
-
-    margin-left: auto !important;
-    margin-right: auto !important;
-
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  #main-wrapper > .container > .row {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    align-items: flex-start !important;
-
-    gap: var(--clover-gap) !important;
-
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  #main,
-  main {
-    flex: 0 0 var(--clover-content-width) !important;
-    width: var(--clover-content-width) !important;
-    max-width: var(--clover-content-width) !important;
-
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  #panel-wrapper {
-    display: block !important;
-
-    flex: 0 0 var(--clover-panel-width) !important;
-    width: var(--clover-panel-width) !important;
-    max-width: var(--clover-panel-width) !important;
-    min-width: var(--clover-panel-width) !important;
-
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-
-    background-color: var(--clover-bg) !important;
-  }
-
-  .col-xl-3,
-  .col-xl-9,
-  .col-lg-11,
-  .col-12 {
-    max-width: none !important;
-  }
+/* Keep the content column and right panel within the viewport. */
+#main-wrapper,
+#main-wrapper > .container,
+#main-wrapper > .container > .row,
+#main,
+main,
+#panel-wrapper {
+  min-width: 0;
 }
 
-/* =========================
-   Topbar / Breadcrumb / Search
-   위치는 유지하고, 스크롤 겹침만 방지
-   ========================= */
+/* Push the footer to the bottom on short or empty pages. */
+#main-wrapper > .container {
+  min-height: 100vh;
+}
 
-@media (min-width: 1200px) {
-  #topbar-wrapper {
-    position: fixed !important;
+#main-wrapper > .container > .row.flex-grow-1 {
+  flex-grow: 1 !important;
+}
 
-    top: 0 !important;
-    left: var(--clover-sidebar-width) !important;
+/* Restore native navigation list styling (no extra bullets). */
+#sidebar nav ul,
+#sidebar nav li {
+  list-style: none !important;
+}
 
-    width: calc(100vw - var(--clover-sidebar-width)) !important;
-    max-width: calc(100vw - var(--clover-sidebar-width)) !important;
+#sidebar nav ul {
+  margin: 0;
+  padding-left: 0;
+}
 
-    height: 44px !important;
+/* Small cosmetic tweaks only: do not move top bar controls. */
+#search-input {
+  background-color: #12121f !important;
+  border: 1px solid rgba(155, 124, 255, 0.32) !important;
+  color: var(--clover-text) !important;
+  border-radius: 999px !important;
+}
 
-    margin-left: 0 !important;
-
-    background-color: var(--clover-bg) !important;
-    border-bottom: none !important;
-
-    overflow: visible !important;
-    z-index: 9999 !important;
-  }
-
-  #topbar {
-    position: relative !important;
-
-    width: var(--clover-shell-width) !important;
-    max-width: var(--clover-shell-width) !important;
-
-    height: 44px !important;
-
-    margin-left: auto !important;
-    margin-right: auto !important;
-
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-
-    display: block !important;
-
-    background-color: var(--clover-bg) !important;
-    overflow: visible !important;
-  }
-
-  /* Home / breadcrumb 위치 */
-  #breadcrumb {
-    position: absolute !important;
-
-    top: 14px !important;
-    left: 0 !important;
-
-    width: var(--clover-content-width) !important;
-    max-width: var(--clover-content-width) !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    text-align: left !important;
-
-    background-color: var(--clover-bg) !important;
-    z-index: 10000 !important;
-  }
-
-  /* Search 위치 */
-  #search-wrapper,
-  #topbar #search-wrapper,
-  #topbar .search-wrapper,
-  #search {
-    position: absolute !important;
-
-    top: 6px !important;
-    left: calc(var(--clover-content-width) + var(--clover-gap)) !important;
-
-    width: 200px !important;
-    max-width: 200px !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    transform: none !important;
-    z-index: 10001 !important;
-  }
-
-  #search-input {
-    width: 200px !important;
-    max-width: 200px !important;
-    height: 28px !important;
-
-    margin: 0 !important;
-
-    background-color: #12121f !important;
-    border: 1px solid rgba(155, 124, 255, 0.32) !important;
-    color: var(--clover-text) !important;
-    border-radius: 999px !important;
-  }
-
-  #search-input::placeholder {
-    color: #8f88a8 !important;
-  }
-
-  #search-trigger {
-    position: absolute !important;
-
-    top: 6px !important;
-    left: calc(var(--clover-content-width) + var(--clover-gap)) !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    transform: none !important;
-    z-index: 10002 !important;
-  }
+#search-input::placeholder {
+  color: #8f88a8 !important;
 }
 
 /* =========================
@@ -426,21 +281,6 @@ a.post-tag {
 }
 
 /* =========================
-   Search
-   ========================= */
-
-#search-input {
-  background-color: #12121f !important;
-  border: 1px solid rgba(155, 124, 255, 0.32) !important;
-  color: var(--clover-text) !important;
-  border-radius: 999px !important;
-}
-
-#search-input::placeholder {
-  color: #8f88a8 !important;
-}
-
-/* =========================
    Right Panel
    ========================= */
 
@@ -479,30 +319,7 @@ a.post-tag {
   color: var(--clover-point-hover) !important;
 }
 
-/* =========================
-   Footer
-   ========================= */
-
-/* =========================
-   Sidebar Bottom Icons
-   ========================= */
-
+/* Sidebar bottom icons use Chirpy's own responsive positioning. */
 #sidebar .sidebar-bottom {
-  position: fixed !important;
-  left: 30px !important;
-  bottom: 30px !important;
-
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-
-  width: auto !important;
-  gap: 10px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-#sidebar .sidebar-bottom a {
-  margin: 0 !important;
+  gap: 10px;
 }

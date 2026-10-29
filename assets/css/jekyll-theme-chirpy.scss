@@ -298,14 +298,19 @@ a.post-tag {
   flex-direction: column !important;
   background: var(--clover-bg) !important;
 }
-#main-wrapper > .container > .row {
+/* Chirpy: first .row contains main content, last .row contains #tail-wrapper > footer.
+   Do not stretch every .row: that previously made the footer float in the middle. */
+#main-wrapper > .container > .row.flex-grow-1 {
   flex: 1 0 auto !important;
 }
-#main-wrapper > .container > footer,
-#main-wrapper > .container > #footer-wrapper {
+#main-wrapper > .container > .row:last-child {
   flex: 0 0 auto !important;
   margin-top: auto !important;
-  width: 100% !important;
+}
+#main-wrapper > .container > .row > #tail-wrapper {
+  width: auto;
+}
+#tail-wrapper > footer {
   background: var(--clover-bg) !important;
 }
 
